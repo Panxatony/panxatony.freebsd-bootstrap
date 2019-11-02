@@ -6,11 +6,9 @@
 
 - name: install ntp package
   pkgng:
-    name: "{{ item }}"
+    name: net/ntp
     state: present
-    #use_packages: no
-  with_items:
-    - net/ntp
+    #use_packages: no:
 
 - name: check localtime file
   stat:

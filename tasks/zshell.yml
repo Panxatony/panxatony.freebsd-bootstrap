@@ -1,8 +1,7 @@
 - name: install zShell
-  portinstall:
+  pkgng:
     name: shells/zsh
     state: present
-    use_packages: no
 
 - name: config zsh for user
   block:

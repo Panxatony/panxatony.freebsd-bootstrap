@@ -19,11 +19,11 @@
   when: firewall_config.changed
 
 - name: Adds accf_http and accf_data to the bootloader and loads it
-   kld:
-     name: "{{ item }}"
-   loop:
-     - accf_http
-     - accf_data
+  kld:
+    name: "{{ item }}"
+  loop:
+    - accf_http
+    - accf_data
 
 # enable accf_http kld in the boot loader
 - name: enable accf_http kld

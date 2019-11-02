@@ -9,8 +9,8 @@
 
     - name: set zshell for user
       command: 'chsh -s /usr/local/bin/zsh {{ item }}'
-      with_items:
+      loop:
         - "{{ bootstrap_zsh_user }}"
       #when: ( bootstrap_zsh_user is defined )
 
-   when: ( bootstrap_zsh_user is defined )
+  when: ( bootstrap_zsh_user is defined )

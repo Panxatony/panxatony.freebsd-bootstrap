@@ -37,3 +37,5 @@ zshell_packages:
   - shells/zsh-completions
   - shells/zsh-navigation-tools
   - shells/zsh-syntax-highlighting
+
+firewall_myservices: "22/tcp 80/tcp 443/tcp 2022/tcp"

@@ -27,7 +27,7 @@
     name: "{{ item.name }}"
     state: present
     value: "{{ item.value }}"
-    dest: /etc/periodic.conf
+    dest: /etc/rc.conf
   loop:
     - { name: ntpdate_enable, value: "YES" }
     - { name: ntpdate_hosts, value: "europe.pool.ntp.org" }

@@ -16,7 +16,7 @@
       template:
         src: zshrc.j2
         dest: "/home/{{ item }}/.zshrc"
-        owner: {{ item }}
+        owner: "{{ item }}"
         group: wheel
         mode: 0644
       loop:

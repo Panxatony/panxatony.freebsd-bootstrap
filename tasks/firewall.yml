@@ -4,14 +4,13 @@
     name: "{{ item.name }}"
     state: present
     value: "{{ item.value }}"
-    dest: /etc/periodic.conf
-  loop:
+    dest: /etc/rc.conf
     - { name: firewall_enable, value: "YES" }
     - { name: firewall_quiet, value: "YES" }
     - { name: firewall_type, value: "workstation" }
     - { name: firewall_myservices, value: "{{ firewall_myservices }}" }
     - { name: firewall_allowservices, value: "any" }
-    - { name: ffirewall_logdeny, value: "YES" }
+    - { name: firewall_logdeny, value: "YES" }
   register: firewall_config
 
 - name: reboot server

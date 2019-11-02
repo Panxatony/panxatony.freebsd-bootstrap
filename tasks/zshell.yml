@@ -1,6 +1,6 @@
 - name: install zShell
   pkgng:
-    name: shells/zsh
+    name: "{{ zshell_packages }}"
     state: present
 
 - name: config zsh for user
@@ -11,5 +11,15 @@
       loop:
         - "{{ bootstrap_zsh_user }}"
       #when: ( bootstrap_zsh_user is defined )
+
+    - name: set .zshrc file
+      template:
+        src: zshrc.j2
+        dest: "/home/{{ item }}/.zshrc"
+        owner: {{ item }}
+        group: wheel
+        mode: 0644
+      loop:
+        - "{{ bootstrap_zsh_user }}"
 
   when: ( bootstrap_zsh_user is defined )

@@ -1,0 +1,23 @@
+# /etc/make.conf
+# Lars Vonhof-Hunold, 2017
+#
+
+WRKDIRPREFIX=           /var/ports
+DISTDIR=                /var/ports/distfiles
+PACKAGES=               /var/ports/packages
+INDEXDIR=               /var/ports
+
+# allow compiler optimizations specific to our CPU model
+MAKE_JOBS_NUMBER?={{ ansible_processor_count }}
+CPUTYPE?=native
+
+# optimization level O2 is the highest supported by FreeBSD and most ports.
+CFLAGS=-O2 -pipe -fno-strict-aliasing
+OPTIONS_SET=OPTIMIZED_CFLAGS CPUFLAGS
+
+# COPTFLAGS only apply when building the kernel
+COPTFLAGS=$CFLAGS
+
+# Headless server options
+OPTIONS_SET+=ICONV
+OPTIONS_UNSET=CUPS DEBUG DOCS FONTCONFIG NLS X11 GUI

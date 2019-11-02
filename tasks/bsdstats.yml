@@ -1,0 +1,16 @@
+---
+- name: install bsdstats
+  portinstall:
+    name: bsdstats
+    state: present
+    use_packages: no
+
+- name: enable bsdstats
+  sysrc:
+    name: "{{ item.name }}"
+    state: present
+    value: "{{ item.value }}"
+    dest: /etc/periodic.conf
+  loop:
+    - { name: monthly_statistics_enable, value: "YES" }
+    - { name: monthly_statistics_report_devices, value: "YES" }

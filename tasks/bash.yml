@@ -1,0 +1,17 @@
+---
+- name: install bash
+  portinstall:
+    name: bash
+    state: present
+    use_packages: no
+
+- name: add fsdescfs entry to /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    regexp: '^fdescfs'
+    line: 'fdescfs /dev/fd  fdescfs  rw  0  0'
+  register: fsdescfs
+
+- name: reboot
+  reboot:
+  when: fsdescfs.changed

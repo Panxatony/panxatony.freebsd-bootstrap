@@ -1,0 +1,18 @@
+---
+- name: install zfs tools
+  portinstall:
+    name: "{{ item }}"
+    state: present
+    use_packages: no
+  with_items:
+    - sysutils/zfs-stats
+
+- name: set zfs related checks in /etc/periodic.conf
+  sysrc:
+    name: "{{ item.name }}"
+    state: present
+    value: "{{ item.value }}"
+    dest: /etc/periodic.conf
+  loop:
+    - { name: daily_status_zfs_enable, value: "YES" }
+    - { name: daily_scrub_zfs_enable, value: "YES" }

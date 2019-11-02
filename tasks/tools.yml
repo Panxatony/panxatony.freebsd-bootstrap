@@ -1,0 +1,6 @@
+---
+- name: install tools
+  portinstall:
+    name: "{{ bootstrap_tools }}"
+    state: present
+    use_packages: no

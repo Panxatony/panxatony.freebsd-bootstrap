@@ -1,0 +1,30 @@
+---
+bootstrap_install_portupgrade: true
+bootstrap_install_pkgng: true
+
+bootstrap_tools:
+  - sudo
+  - bsdadminscripts2
+  - tmux
+  - mc
+  - sysinfo
+  - dmidecode
+  - freecolor
+  - pstree
+  - iftop
+  - cmdwatch
+  - tree
+  - checkbashisms
+  - iperf
+  - bind-tools
+  - nethogs
+  - trafshow
+  - gtar
+
+smartmon_enable: true
+smartmon_smart_devices: "/dev/ada0 /dev/ada1"
+smartmon_receipent: noreply@example.com
+
+bsdstats_enable: true
+
+system_timezone: UTC

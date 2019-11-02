@@ -1,0 +1,16 @@
+- name: install zShell
+  portinstall:
+    name: shells/zsh
+    state: present
+    use_packages: no
+
+- name: config zsh for user
+  block:
+
+    - name: set zshell for user
+      command: 'chsh -s /usr/local/bin/zsh {{ item }}'
+      with_items:
+        - "{{ bootstrap_zsh_user }}"
+      #when: ( bootstrap_zsh_user is defined )
+
+   when: ( bootstrap_zsh_user is defined )

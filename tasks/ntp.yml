@@ -1,0 +1,39 @@
+---
+- name: set CMOS clock UTC
+  file:
+    path: /etc/wall_cmos_clock
+    state: absent
+
+- name: install ntp package
+  pkgng:
+    name: "{{ item }}"
+    state: present
+    #use_packages: no
+  with_items:
+    - net/ntp
+
+- name: check localtime file
+  stat:
+    path: /etc/localtime
+  register: localtime_stat_result
+
+- name: copy {{ system_timezone }} to /etc/localtime
+  copy:
+    remote_src: yes
+    src: "/usr/share/zoneinfo/{{ system_timezone }}"
+    dest: /etc/localtime
+  #when: localtime_stat_result == False
+
+- name: set ntp sync in /etc/rc.conf
+  sysrc:
+    name: "{{ item.name }}"
+    state: present
+    value: "{{ item.value }}"
+    dest: /etc/periodic.conf
+  loop:
+    - { name: ntpdate_enable, value: "YES" }
+    - { name: ntpdate_hosts, value: "europe.pool.ntp.org" }
+
+- name: set timezone to UTC
+  timezone:
+    name: UTC

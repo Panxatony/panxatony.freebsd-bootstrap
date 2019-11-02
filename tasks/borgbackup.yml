@@ -1,0 +1,6 @@
+---
+- name: install borgbackup
+  portinstall:
+    name: archivers/py-borgbackup
+    state: present
+    use_packages: no

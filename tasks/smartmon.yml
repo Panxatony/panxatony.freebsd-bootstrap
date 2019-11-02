@@ -1,0 +1,38 @@
+---
+- name: install smartmontools
+  portinstall:
+    name: sysutils/smartmontools
+    state: present
+    use_packages: no
+
+- name: check smartmon.conf
+  stat:
+    path: /usr/local/etc/smartd.conf
+  register: smartmon_conf_stat_result
+
+- name: copy smartmon conf file
+  copy:
+    remote_src: yes
+    src: /usr/local/etc/smartd.conf.sample
+    dest: /usr/local/etc/smartd.conf
+  when: smartmon_conf_stat_result.stat.exists == False
+
+- name: enable email notification
+  lineinfile:
+    path: /usr/local/etc/smartd.conf
+    line: 'DEVICESCAN -a -m {{ smartmon_receipent }}'
+    state: present
+    create: yes
+    owner: root
+    group: wheel
+    mode: 0644
+
+- name: set zfs related checks in /etc/periodic.conf
+  sysrc:
+    name: "daily_status_smart_devices"
+    state: present
+    value: "{{ smartmon_smart_devices }}"
+    dest: /etc/periodic.conf
+
+- name: start smartd
+  service: name=smartd state=started enabled=yes

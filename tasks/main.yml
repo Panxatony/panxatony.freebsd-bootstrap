@@ -1,0 +1,54 @@
+---
+- name: Set OS dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+   - "{{ ansible_os_family }}.yml"
+
+- name: set hostname
+  include_tasks: hostname.yml
+
+- name: set DNS Server
+  include_tasks: dns.yml
+
+- name: set Message of the Day
+  include_tasks: motd.yml
+
+- name: install package and port tools
+  include_tasks: ports.yml
+
+- name: update all ports
+  include_tasks: update.yml
+
+- name: set time
+  include_tasks: ntp.yml
+
+- name: install git
+  include_tasks: git.yml
+
+- name: install zShell
+  include_tasks: zshell.yml
+
+- name: install system tools
+  include_tasks: tools.yml
+
+- name: execute zfs tools
+  include_tasks: zfs.yml
+
+- name: install bash
+  include_tasks: bash.yml
+
+- name: enable Smartmon
+  include_tasks: smartmon.yml
+  when: ( smartmon_enable == true)
+
+- name: enable bsdstats
+  include_tasks: bsdstats.yml
+  when: ( bsdstats_enable == true)
+
+- name: install borgbackup
+  include_tasks: borgbackup.yml
+
+

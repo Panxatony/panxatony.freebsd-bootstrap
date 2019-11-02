@@ -1,0 +1,14 @@
+---
+#- name: remove old packages
+#  portinstall:
+#    name: "{{ item }}"
+#    state: absent
+#  with_items:
+#    - vim-lite
+#    - oniguruma5
+
+- name: update all
+  #raw: 'portmaster -aBGdy --no-confirm'
+  command: 'portmaster -d -y --no-confirm --delete-packages -a -B -G {{ vulnerabilities_ports }}'
+  register: result_bootstrap_update
+  changed_when: "'All ports are up to date' not in result_bootstrap_update.stdout"

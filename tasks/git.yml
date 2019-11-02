@@ -1,0 +1,6 @@
+---
+- name: install git
+  pkgng:
+    name: git
+    state: present
+    #use_packages: no

@@ -28,3 +28,14 @@ smartmon_receipent: noreply@example.com
 bsdstats_enable: true
 
 system_timezone: UTC
+
+zshell_packages:
+  - shells/git-prompt.zsh
+  - shells/zsh
+  - shells/zsh-antigen
+  - shells/zsh-autosuggestions
+  - shells/zsh-completions
+  - shells/zsh-navigation-tools
+  - shells/zsh-syntax-highlighting
+
+firewall_myservices: "22/tcp 80/tcp 443/tcp 2022/tcp"

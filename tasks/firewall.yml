@@ -1,0 +1,33 @@
+---
+- name: set firewall
+  sysrc:
+    name: "{{ item.name }}"
+    state: present
+    value: "{{ item.value }}"
+    dest: /etc/rc.conf
+    - { name: firewall_enable, value: "YES" }
+    - { name: firewall_quiet, value: "YES" }
+    - { name: firewall_type, value: "workstation" }
+    - { name: firewall_myservices, value: "{{ firewall_myservices }}" }
+    - { name: firewall_allowservices, value: "any" }
+    - { name: firewall_logdeny, value: "YES" }
+  register: firewall_config
+
+- name: reboot server
+  reboot:
+  when: firewall_config.changed
+
+- name: Adds accf_http and accf_data to the bootloader and loads it
+  kld:
+    name: "{{ item }}"
+  loop:
+    - accf_http
+    - accf_data
+
+# enable accf_http kld in the boot loader
+- name: enable accf_http kld
+  sysrc:
+    name: accf_http_load
+    state: present
+    value: "YES"
+    dest: /boot/loader.conf

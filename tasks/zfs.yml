@@ -1,11 +1,9 @@
 ---
 - name: install zfs tools
   portinstall:
-    name: "{{ item }}"
+    name: sysutils/zfs-stats
     state: present
     use_packages: no
-  with_items:
-    - sysutils/zfs-stats
 
 - name: set zfs related checks in /etc/periodic.conf
   sysrc:

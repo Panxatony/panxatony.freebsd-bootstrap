@@ -51,4 +51,8 @@
 - name: install borgbackup
   include_tasks: borgbackup.yml
 
+- name: set firewall
+  include_tasks: firewall.yml
+
+
 

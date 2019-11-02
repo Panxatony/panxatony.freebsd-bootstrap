@@ -1,6 +1,6 @@
 ---
 - name: install tools
-  portinstall:
+  pkgng:
     name: "{{ bootstrap_tools }}"
     state: present
-    use_packages: no
+#    use_packages: no
